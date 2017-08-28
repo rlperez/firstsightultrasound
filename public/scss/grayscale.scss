@@ -9,7 +9,7 @@ body {
   height: 100%;
 
   color: white;
-  background-color: black;
+  background-color: $background;
 }
 
 html {
@@ -60,136 +60,138 @@ a {
 }
 
 #mainNav {
-  font-family: 'Cabin', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Cabin', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin-bottom: 0;
+    text-transform: uppercase;
+    border-bottom: 1px solid fade-out($border, .7);
+    background-color: $background;
 
-  margin-bottom: 0;
-
-  text-transform: uppercase;
-
-  border-bottom: 1px solid fade-out(white, .7);
-  background-color: black;
-  .navbar-toggler {
-    font-size: 14px;
-
-    padding: 11px;
-
-    color: white;
-    border: 1px solid white;
-  }
-  .navbar-brand {
-    font-weight: 700;
-  }
-  a {
-    color: white;
-  }
-  .navbar-nav {
-    .nav-item {
-      -webkit-transition: background 0.3s ease-in-out;
-      -moz-transition: background 0.3s ease-in-out;
-      transition: background 0.3s ease-in-out;
-      &:hover {
-        color: fade(white, 80%);
-        outline: none;
-        background-color: transparent;
-      }
-      &:active,
-      &:focus {
-        outline: none;
-        background-color: transparent;
-      }
-    }
-  }
-  @media(min-width:992px) {
-    padding-top: 20px;
-    padding-bottom: 20px;
-
-    -webkit-transition: background 0.3s ease-in-out, padding-top 0.3s ease-in-out, padding-bottom 0.3s;
-    -moz-transition: background 0.3s ease-in-out, padding-top 0.3s ease-in-out, padding-bottom 0.3s;
-    transition: background 0.3s ease-in-out, padding-top 0.3s ease-in-out, padding-bottom 0.3s;
-    letter-spacing: 1px;
-
-    border-bottom: none;
-    background: transparent;
-    &.navbar-shrink {
-      padding-top: 10px;
-      padding-bottom: 10px;
-
-      border-bottom: 1px solid fade-out(white, .7);
-      background: black;
-    }
-    .nav-link.active {
-      outline: none;
-      background-color: rgba(white, .3);
-      &:hover {
+    .navbar-toggler {
+        font-size: 14px;
+        padding: 11px;
         color: white;
-      }
+        border: 1px solid $border;
     }
-  }
+
+    .navbar-brand {
+        font-weight: 700;
+    }
+
+    a {
+        color: white;
+    }
+
+    .navbar-nav {
+        .nav-item {
+            -webkit-transition: background 0.3s ease-in-out;
+            -moz-transition: background 0.3s ease-in-out;
+            transition: background 0.3s ease-in-out;
+
+            &:hover {
+                color: fade(white, 80%);
+                outline: none;
+                background-color: transparent;
+            }
+
+            &:active,
+            &:focus {
+                outline: none;
+                background-color: transparent;
+            }
+        }
+    }
+
+    @media(min-width:992px) {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        -webkit-transition: background 0.3s ease-in-out, padding-top 0.3s ease-in-out, padding-bottom 0.3s;
+        -moz-transition: background 0.3s ease-in-out, padding-top 0.3s ease-in-out, padding-bottom 0.3s;
+        transition: background 0.3s ease-in-out, padding-top 0.3s ease-in-out, padding-bottom 0.3s;
+        letter-spacing: 1px;
+        border-bottom: none;
+        background: transparent;
+
+        &.navbar-shrink {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid fade-out(white, .7);
+            background: $background;
+        }
+
+        .nav-link.active {
+            outline: none;
+            background-color: rgba($active, 0.9);
+
+            &:hover {
+                color: white;
+            }
+        }
+    }
 }
 
 .masthead {
-  display: table;
+    display: table;
+    width: 100%;
+    height: auto;
+    padding: 200px 0;
+    text-align: center;
+    color: white;
+    background: url('../img/intro-bg.jpg') no-repeat bottom center scroll;
+    background-color: $background;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 
-  width: 100%;
-  height: auto;
-  padding: 200px 0;
-
-  text-align: center;
-
-  color: white;
-  background: url('../img/intro-bg.jpg') no-repeat bottom center scroll;
-  background-color: black;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  .intro-body {
-    display: table-cell;
-
-    vertical-align: middle;
-    .brand-heading {
-      font-size: 50px;
-    }
-    .intro-text {
-      font-size: 18px;
-    }
-  }
-  @media(min-width:768px) {
-    height: 100%;
-    padding: 0;
     .intro-body {
-      .brand-heading {
-        font-size: 100px;
-      }
-      .intro-text {
-        font-size: 22px;
-      }
+        display: table-cell;
+        vertical-align: middle;
+
+        .brand-heading {
+            font-size: 50px;
+        }
+
+        .intro-text {
+            font-size: 18px;
+        }
     }
-  }
+
+    @media(min-width:768px) {
+        height: 100%;
+        padding: 0;
+
+        .intro-body {
+            .brand-heading {
+                font-size: 100px;
+            }
+
+            .intro-text {
+                font-size: 22px;
+            }
+        }
+    }
 }
 
 .btn-circle {
-  font-size: 26px;
+    font-size: 26px;
+    width: 55px;
+    height: 55px;
+    margin-top: 15px;
+    line-height: 38px;
+    -webkit-transition: background 0.3s ease-in-out;
+    -moz-transition: background 0.3s ease-in-out;
+    transition: background 0.3s ease-in-out;
+    color: $background;
+    border: 2px solid $background;
+    border-radius: 100% !important;
+    background: transparent;
 
-  width: 55px;
-  height: 55px;
-  margin-top: 15px;
-  line-height: 38px;
-
-  -webkit-transition: background 0.3s ease-in-out;
-  -moz-transition: background 0.3s ease-in-out;
-  transition: background 0.3s ease-in-out;
-
-  color: white;
-  border: 2px solid white;
-  border-radius: 100% !important;
-  background: transparent;
-  &:focus,
-  &:hover {
-    color: white;
-    outline: none;
-    background: fade-out(white, .9);
-  }
+    &:focus,
+    &:hover {
+        color: $hover;
+        outline: none;
+        background: fade-out($hover, .9);
+    }
 }
 
 .content-section {
@@ -198,13 +200,13 @@ a {
 }
 
 .download-section {
-  color: white;
-  background: url('../img/downloads-bg.jpg') no-repeat center center scroll;
-  background-color: black;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+    color: white;
+    background: url('../img/downloads-bg.jpg') no-repeat center center scroll;
+    background-color: $background;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 #map {
@@ -234,16 +236,17 @@ a {
 }
 
 .btn-default {
-  color: $primary;
-  border: 1px solid $primary;
-  background-color: transparent;
-  &:focus,
-  &:hover {
-    color: black;
+    color: $primary;
     border: 1px solid $primary;
-    outline: none;
-    background-color: $primary;
-  }
+    background-color: transparent;
+
+    &:focus,
+    &:hover {
+        color: $background;
+        border: 1px solid $primary;
+        outline: none;
+        background-color: $primary;
+    }
 }
 
 ul.banner-social-buttons {
