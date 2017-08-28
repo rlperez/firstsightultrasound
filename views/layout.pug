@@ -1,0 +1,16 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+        meta(name='description', content='')
+        meta(name='author', content='')
+
+        title !{PrismicDOM.RichText.asText(pageContent.data.title)}
+
+        include  partials/styles.pug
+        include  partials/scripts.pug
+
+    body#page-top
+        block content
+        include partials/footer.pug
