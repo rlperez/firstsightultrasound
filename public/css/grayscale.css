@@ -50,13 +50,13 @@ a {
   font-family: 'Cabin', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   margin-bottom: 0;
   text-transform: uppercase;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  border-bottom: 1px solid rgba(243, 210, 202, 0.3);
   background-color: #045374; }
   #mainNav .navbar-toggler {
     font-size: 14px;
     padding: 11px;
     color: white;
-    border: 1px solid white; }
+    border: 1px solid #F3D2CA; }
   #mainNav .navbar-brand {
     font-weight: 700; }
   #mainNav a {
