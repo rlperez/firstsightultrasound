@@ -99,7 +99,7 @@ a {
   height: auto;
   padding: 200px 0;
   text-align: center;
-  color: white;
+  color: #045374;
   background-color: #045374;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -120,6 +120,13 @@ a {
         font-size: 100px; }
       .masthead .intro-body .intro-text {
         font-size: 22px; } }
+  @media (min-width: 996px) {
+    .masthead h1 {
+      text-align: left;
+      margin-left: -20%; }
+    .masthead .intro-text {
+      text-align: left;
+      margin-left: -14%; } }
 
 .btn-circle {
   font-size: 26px;

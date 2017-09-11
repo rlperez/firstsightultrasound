@@ -1,20 +1,18 @@
 @import 'variables.scss';
 @import 'mixins.scss';
+
 body {
-  font-family: 'Lora', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-
-  position: relative;
-
-  width: 100%;
-  height: 100%;
-
-  color: white;
-  background-color: $background;
+    font-family: 'Lora', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    color: white;
+    background-color: $background;
 }
 
 html {
-  width: 100%;
-  height: 100%;
+    width: 100%;
+    height: 100%;
 }
 
 h1,
@@ -23,40 +21,36 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Cabin', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 700;
-
-  margin: 0 0 35px;
-
-  letter-spacing: 1px;
-  text-transform: uppercase;
+    font-family: 'Cabin', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    margin: 0 0 35px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
 p {
-  font-size: 16px;
-  line-height: 1.5;
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0 0 25px;
 
-  margin: 0 0 25px;
-  @media(min-width: 768px) {
-    font-size: 18px;
-    line-height: 1.6;
-
-    margin: 0 0 35px;
-  }
+    @media(min-width: 768px) {
+        font-size: 18px;
+        line-height: 1.6;
+        margin: 0 0 35px;
+    }
 }
 
 a {
-  -webkit-transition: all 0.2s ease-in-out;
-  -moz-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    color: $primary;
 
-  color: $primary;
-  &:focus,
-  &:hover {
-    text-decoration: none;
-
-    color: darken($primary, 20%);
-  }
+    &:focus,
+    &:hover {
+        text-decoration: none;
+        color: darken($primary, 20%);
+    }
 }
 
 #mainNav {
@@ -135,7 +129,7 @@ a {
     height: auto;
     padding: 200px 0;
     text-align: center;
-    color: white;
+    color: $header-text-color;
     // background: url('../img/intro-bg.jpg') no-repeat bottom center scroll;
     background-color: $background;
     -webkit-background-size: cover;
@@ -170,6 +164,18 @@ a {
             }
         }
     }
+
+    @media(min-width: 996px) {
+        h1 {
+            text-align: left;
+            margin-left: -20%;
+        }
+
+        .intro-text {
+            text-align: left;
+            margin-left: -14%;
+        }
+    }
 }
 
 .btn-circle {
@@ -195,8 +201,8 @@ a {
 }
 
 .content-section {
-  padding-top: 150px;
-  padding-bottom: 150px;
+    padding-top: 150px;
+    padding-bottom: 150px;
 }
 
 .download-section {
@@ -210,29 +216,29 @@ a {
 }
 
 #map {
-  width: 100%;
-  height: 300px;
+    width: 100%;
+    height: 300px;
 }
+
 @media(min-width:992px) {
-  .content-section {
-    padding-top: 200px;
-    padding-bottom: 200px;
-  }
-  #map {
-    height: 350px;
-  }
+    .content-section {
+        padding-top: 200px;
+        padding-bottom: 200px;
+    }
+
+    #map {
+        height: 350px;
+    }
 }
 
 .btn {
-  font-family: 'Cabin', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 400;
-
-  -webkit-transition: all 0.3s ease-in-out;
-  -moz-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
-  text-transform: uppercase;
-
-  border-radius: 0;
+    font-family: 'Cabin', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    text-transform: uppercase;
+    border-radius: 0;
 }
 
 .btn-default {
@@ -250,52 +256,54 @@ a {
 }
 
 ul.banner-social-buttons {
-  margin-top: 0;
-  @media(max-width: 1199px) {
-    margin-top: 15px;
-  }
-  @media(max-width:767px) {
-    li {
-      display: block;
+    margin-top: 0;
 
-      margin-bottom: 20px;
-      padding: 0;
-      &:last-child {
-        margin-bottom: 0;
-      }
+    @media(max-width: 1199px) {
+        margin-top: 15px;
     }
-  }
+
+    @media(max-width:767px) {
+        li {
+            display: block;
+            margin-bottom: 20px;
+            padding: 0;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
 }
 
 footer {
-  padding: 50px 0;
-  p {
-    font-size: 14px;
+    padding: 50px 0;
 
-    margin: 0;
-  }
+    p {
+        font-size: 14px;
+        margin: 0;
+    }
 }
 
 ::-moz-selection {
-  background: #fcfcfc;
-  background: fade-out(white, .8);
-  text-shadow: none;
+    background: #fcfcfc;
+    background: fade-out(white, .8);
+    text-shadow: none;
 }
 
 ::selection {
-  background: #fcfcfc;
-  background: fade-out(white, .8);
-  text-shadow: none;
+    background: #fcfcfc;
+    background: fade-out(white, .8);
+    text-shadow: none;
 }
 
 img::selection {
-  background: transparent;
+    background: transparent;
 }
 
 img::-moz-selection {
-  background: transparent;
+    background: transparent;
 }
 
 body {
-  -webkit-tap-highlight-color: fade-out(white, .8);
+    -webkit-tap-highlight-color: fade-out(white, .8);
 }
