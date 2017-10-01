@@ -34,10 +34,6 @@
             $("#mainNav").removeClass("navbar-shrink");
         }
     });
-
-    $('.iw-container').click(function () {
-
-    });
 })(jQuery); // End of use strict
 
 // Google Maps Scripts
@@ -196,16 +192,20 @@ function init() {
 
     // InfoWindow content
     var content = '<div id="iw-container">' +
-        '<div class="iw-title">First Sight Ultrasound</div>' +
-        '<div class="iw-content">' +
-        '<p>1134 York Rd. Suite 109' +
-        '<br>Lutherville, MD 21093' +
-        '<br>Phone. (555) 555-5555</p>' +
-        '</div>' +
-        '</div>';
+                     '<div class="iw-title">First Sight Ultrasound</div>' +
+                     '<div class="iw-content">' +
+                       '<p>1134 York Rd. Suite 109' +
+                         '<br>Lutherville, MD 21093' +
+                         '<br>Phone. (555) 555-5555</p>' +
+                     '</div>' +
+                  '</div>';
     var infowindow = new google.maps.InfoWindow({
         content: content,
         pixelOffset: new google.maps.Size(0, 4)
+    });
+
+    marker.addListener('click', function () {
+        infowindow.open(map, marker);
     });
     infowindow.open(map, marker);
 }
