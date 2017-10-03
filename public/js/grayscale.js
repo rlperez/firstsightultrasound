@@ -192,11 +192,11 @@ function init() {
 
     // InfoWindow content
     var content = '<div id="iw-container">' +
-                     '<div class="iw-title">First Sight Ultrasound</div>' +
+                     '<div class="iw-title"><h6>First Sight Ultrasound</h5></div>' +
                      '<div class="iw-content">' +
-                       '<p>1134 York Rd. Suite 109' +
+                       '1134 York Rd. Suite 109' +
                          '<br>Lutherville, MD 21093' +
-                         '<br>Phone. (555) 555-5555</p>' +
+                         '<br>Phone. (555) 555-5555' +
                      '</div>' +
                   '</div>';
     var infowindow = new google.maps.InfoWindow({

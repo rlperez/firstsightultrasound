@@ -152,7 +152,7 @@ a {
 
 .download-section {
   color: white;
-  background: url("../img/downloads-bg.jpg") no-repeat center center scroll;
+  background: url("https://prismic-io.s3.amazonaws.com/firstsightultrasound%2F8a9365a6-f3ea-4c4f-8e80-124f987b5f3d_woman-child-doctor-hospital.jpg") no-repeat center center scroll;
   background-color: #045374;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -168,6 +168,7 @@ a {
     padding-top: 200px;
     padding-bottom: 200px; }
   #map {
+    height: 501px;
     min-height: 501px; } }
 
 .btn {
@@ -201,6 +202,9 @@ ul.banner-social-buttons {
       padding: 0; }
       ul.banner-social-buttons li:last-child {
         margin-bottom: 0; } }
+
+.card, .iw-container, .gm-style-iw, .iw-content, .iw-title {
+  background: #045374; }
 
 footer {
   padding: 50px 0; }
