@@ -45,7 +45,8 @@ app.route('/').get((req, res) => {
             // TODO: FIND FUNCTIONS TO GET DATA FROM DOCUMENT
             res.render('homepage', {
                 pageContent: document,
-                title: document.data.title
+                data: document.data,
+                services: document.data.services
             });
             console.log(document.data.title);
         })
