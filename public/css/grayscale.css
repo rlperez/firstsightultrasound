@@ -203,8 +203,15 @@ ul.banner-social-buttons {
       ul.banner-social-buttons li:last-child {
         margin-bottom: 0; } }
 
+div.card-body p {
+  margin: 0;
+  padding: 0; }
+
 .card, .iw-container, .gm-style-iw, .iw-content, .iw-title {
   background: #045374; }
+
+section#faq {
+  color: white; }
 
 footer {
   padding: 50px 0; }

@@ -129,3 +129,5 @@ bower_components
 
 # Output of 'npm pack'
 *.tgz.log
+
+FromExistingCode1

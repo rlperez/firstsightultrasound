@@ -42,19 +42,46 @@ app.use((req, res, next) => {
 app.route('/').get((req, res) => {
     req.prismic.api.getByUID('homepage', 'homepage')
         .then((document) => {
-            // TODO: FIND FUNCTIONS TO GET DATA FROM DOCUMENT
             res.render('homepage', {
                 pageContent: document,
                 data: document.data,
                 services: document.data.services
             });
-            console.log(document.data.title);
+            // console.log(document.data);
         })
         .catch((err) => {
-            // Don't forget error management 
             res.status(500).send(`Error 500: ${err.message}`);
+            console.log(err.message);
         });
 });
+
+app.route('/faq').get((req, res) => {
+    req.prismic.api.getByUID('page', 'faq')
+        .then((document) => {
+            res.render('faq', {
+                pageContent: document,
+                data: document.data,
+                faqs: titleAndText(document.data)
+            });
+            // console.log(document.data);
+        })
+        .catch((err) => {
+            res.status(500).send(`Error 500: ${err.message}`);
+            console.log(err.message);
+        });
+});
+
+function titleAndText(data) {
+    return data.body.map(function (slice) {
+        switch (slice.slice_type) {
+            case 'title_and_text':
+                return slice.value.map(function (faq) {
+                    console.log(faq);
+                    return faq
+                });
+        }
+    });
+}
 
 /*
  * Prismic documentation to build your project with prismic

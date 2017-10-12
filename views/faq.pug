@@ -1,0 +1,39 @@
+﻿extends ./layout.pug
+
+block append content
+    // Navigation
+    nav#mainNav.navbar.navbar-expand-lg.navbar-light.fixed-top
+        a.navbar-brand(href='#page-top') !{PrismicDOM.RichText.asText(data.title)}
+        |
+        button.navbar-toggler.navbar-toggler-right(type='button', data-toggle='collapse', data-target='#navbarResponsive', aria-controls='navbarResponsive', aria-expanded='false', aria-label='Toggle navigation')
+            i.fa.fa-bars
+        #navbarResponsive.collapse.navbar-collapse
+            ul.navbar-nav.ml-auto
+                li.nav-item
+                    a.nav-link(href='/#home') Home
+                li.nav-item
+                    a.nav-link(href='/#about') About
+                li.nav-item
+                    a.nav-link(href='/#services') Services
+                li.nav-item
+                    a.nav-link(href='/#contact') Contact
+                li.nav-item
+                    a.nav-link(href='/#map') Location
+                li.nav-item
+                    a.nav-link(href='#faq') FAQ
+
+    section#faq.masthead(style='background: url(' + PrismicDOM.Link.url(data.backgroundImage) + ') no-repeat bottom center scroll').text-center
+        .intro-body
+            .container
+                .row
+                    .col-lg-8.mx-auto
+                        h1
+                            img.left(src=PrismicDOM.Link.url(data.title_image))
+                        div !{PrismicDOM.RichText.asHtml(data.tagline)}
+
+    section
+        .container
+            .row
+                .col-lg-12.mx-auto
+                    for faq in faqs
+                        div !{PrismicDOM.RichText.asHtml(faq.title)}

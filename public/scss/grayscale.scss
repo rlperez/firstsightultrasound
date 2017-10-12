@@ -277,8 +277,17 @@ ul.banner-social-buttons {
     }
 }
 
+div.card-body p {
+    margin: 0;
+    padding: 0;
+}
+
 .card, .iw-container, .gm-style-iw, .iw-content, .iw-title {
     background: $background;
+}
+
+section#faq {
+    color: white;
 }
 
 footer {
