@@ -31,9 +31,16 @@ block append content
                             img.left(src=PrismicDOM.Link.url(data.title_image))
                         div !{PrismicDOM.RichText.asHtml(data.tagline)}
 
-    section
+    section.content-section.text-left
         .container
             .row
                 .col-lg-12.mx-auto
-                    for faq in faqs
-                        div !{PrismicDOM.RichText.asHtml(faq.title)}
+                    #accordion(role="tablist")
+                    for slice in faqs
+                        each faq, i in slice.value
+                            .card
+                                .faq_title.card-header(role="tab" id="heading_" + i) 
+                                    a(data-toggle="collapse" data-target="#collapse_" + i href="javascript:void(0);"  aria-controls="collapse_" + i aria-expanded=(i === 0) ? "true" : "false") !{PrismicDOM.RichText.asHtml(faq.title)}
+                                div(id="collapse_" + i role="tabpanel" aria-labelledby="heading_" + i data-parent="#accordion" class=(i === 0) ? "collapse show" : "collapse" )
+                                    .faq_text.card-body !{PrismicDOM.RichText.asHtml(faq.text)}
+
