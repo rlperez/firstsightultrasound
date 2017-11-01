@@ -192,7 +192,7 @@ function init() {
 
     // InfoWindow content
     var content = '<div id="iw-container">' +
-                     '<div class="iw-title"><h6>First Sight Ultrasound</h5></div>' +
+                     '<div class="iw-title"><h6>Love at First Sight</h5></div>' +
                      '<div class="iw-content">' +
                        '1134 York Rd. Suite 109' +
                          '<br>Lutherville, MD 21093' +
