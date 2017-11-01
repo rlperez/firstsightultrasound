@@ -48,7 +48,7 @@ app.route('/').get((req, res) => {
                 services: document.data.services
             });
             // console.log(document.data);
-            console.log(document.data.social_media);
+            // console.log(document.data);
         })
         .catch((err) => {
             res.status(500).send(`Error 500: ${err.message}`);
