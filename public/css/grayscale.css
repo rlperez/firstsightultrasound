@@ -221,6 +221,10 @@ div.card-body p {
   content: "\F08A";
   padding-right: 5px; }
 
+.card a.btn-primary {
+  margin: auto;
+  width: 100%; }
+
 .card, .iw-container, .gm-style-iw, .iw-content, .iw-title {
   background: #045374; }
 
