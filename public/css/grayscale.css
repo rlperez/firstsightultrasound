@@ -207,6 +207,20 @@ div.card-body p {
   margin: 0;
   padding: 0; }
 
+.card ul {
+  margin-left: 0;
+  padding-left: 0; }
+
+.card li {
+  list-style: none;
+  padding-left: 1em;
+  text-indent: -1em; }
+
+.card li:before {
+  font-family: 'FontAwesome';
+  content: "\F08A";
+  padding-right: 5px; }
+
 .card, .iw-container, .gm-style-iw, .iw-content, .iw-title {
   background: #045374; }
 
