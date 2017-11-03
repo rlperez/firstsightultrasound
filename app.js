@@ -78,7 +78,7 @@ app.route('/gallery').get((req, res) => {
         data: document.data,
         galleryImages: document.data.body[0].value
       });
-      console.log(document.data.body[0].value[0].image.url);
+      // console.log(document.data.body[0].value[0].image.url);
     })
     .catch((err) => {
       res.status(500).send(`Error 500: ${err.message}`);
