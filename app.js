@@ -47,8 +47,7 @@ app.route('/').get((req, res) => {
                 data: document.data,
                 services: document.data.services
             });
-            // console.log(document.data);
-            // console.log(document.data);
+            console.log(document.data);
         })
         .catch((err) => {
             res.status(500).send(`Error 500: ${err.message}`);
@@ -64,12 +63,27 @@ app.route('/faq').get((req, res) => {
                 data: document.data,
                 faqs: titleAndText(document.data)
             });
-            // console.log(document.data);
         })
         .catch((err) => {
             res.status(500).send(`Error 500: ${err.message}`);
             console.log(err.message);
         });
+});
+
+app.route('/gallery').get((req, res) => {
+  req.prismic.api.getByUID('page', 'gallery')
+    .then((document) => {
+      res.render('gallery', {
+        pageContent: document,
+        data: document.data,
+        galleryImages: document.data.body[0].value
+      });
+      console.log(document.data.body[0].value[0].image.url);
+    })
+    .catch((err) => {
+      res.status(500).send(`Error 500: ${err.message}`);
+      console.log(err.message);
+    });
 });
 
 function titleAndText(data) {
