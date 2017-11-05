@@ -46,7 +46,7 @@ gulp.task('minify-css', ['sass'], function () {
 
 // Minify custom JS
 gulp.task('minify-js', function () {
-    return gulp.src('public/js/grayscale.js')
+  return gulp.src(['public/js/grayscale.js', 'public/js/calendar.js', 'public/js/custom.js'])
         .pipe(uglify())
         .pipe(header(banner, {
             pkg: pkg
