@@ -35,22 +35,30 @@ block append content
                             img.left(src=PrismicDOM.Link.url(data.title_image))
                         div !{PrismicDOM.RichText.asHtml(data.tagline)}
 
-    section.datepickers
-        .container
-            br
-            .row.centered
-                .datepicker.col-lg-12.mx-auto#ultrasound_calendar
-
-
     section.content-section.text-left
         .container
             .row
                 .col-lg-12.mx-auto
                     #accordion(role="tablist")
+                        .card
+                            .faq_title.card-header(role="tab" id="heading_0") 
+                                a(data-toggle="collapse" data-target="#collapse_0" href="javascript:void(0);"  aria-controls="collapse_0" aria-expanded="true")
+                                    h3 When Is The Best Time To Take A Peek At Your Baby?
+                            div(id="collapse_0" role="tabpanel" aria-labelledby="heading_0" data-parent="#accordion" class="collapse show")
+                                .faq_text.card-body 
+                                    p.lead.weeks-15-to-20 Weeks 15–20: Best time to see your Baby's entire body, but the face may not be visible.
+                                    p.lead.weeks-20-to-25 Weeks 20–25: Capture the first images of your Baby's facial features! This is also the optimal time to visualize fetal movement – i.e. your Baby moving its head, hands, arms & feet!
+                                    p.lead.weeks-25-to-30 Weeks 25–30: Your Baby's features are more defined & developed -- plus see how much your Baby has grown!
+                                    p.lead.weeks-30-to-35 Weeks 30–35: Although your Baby is nearly full-grown & is too big to be captured in 1 image, your Baby can now be visualized in great detail. It's like having "close-up" session!
+                                    br
+                                    .datepickers
+                                        .datepicker.col-lg-12.mx-auto#ultrasound_calendar
+
+
                     for slice in faqs
                         each faq, i in slice.value
                             .card
-                                .faq_title.card-header(role="tab" id="heading_" + i) 
-                                    a(data-toggle="collapse" data-target="#collapse_" + i href="javascript:void(0);"  aria-controls="collapse_" + i aria-expanded=(i === 0) ? "true" : "false") !{PrismicDOM.RichText.asHtml(faq.title)}
-                                div(id="collapse_" + i role="tabpanel" aria-labelledby="heading_" + i data-parent="#accordion" class=(i === 0) ? "collapse show" : "collapse" )
+                                .faq_title.card-header(role="tab" id="heading_" + (i + 1)) 
+                                    a(data-toggle="collapse" data-target="#collapse_" + (i + 1) href="javascript:void(0);"  aria-controls="collapse_" + (i + 1) aria-expanded="false") !{PrismicDOM.RichText.asHtml(faq.title)}
+                                div(id="collapse_" + (i + 1) role="tabpanel" aria-labelledby="heading_" + (i + 1) data-parent="#accordion" class="collapse" )
                                     .faq_text.card-body !{PrismicDOM.RichText.asHtml(faq.text)}

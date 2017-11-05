@@ -351,20 +351,48 @@ body {
     background-color: $darkest-blue !important;
     color: #ffffff !important;
 }
+
 .highlighted-25-to-30 a {
     background-color: $dark-blue !important;
     color: #ffffff !important;
 }
+
 .highlighted-20-to-25 a {
     background-color: $medium-blue !important;
     color: #ffffff !important;
 }
+
 .highlighted-15-to-20 a {
     background-color: $light-blue !important;
     color: #ffffff !important;
 }
+
 .highlighted-10-to-15 a {
     background-color: $lightest-blue !important;
     color: #ffffff !important;
 }
 
+p.weeks-10-to-15 {
+    color: $lightest-blue;
+}
+
+p.weeks-15-to-20 {
+    color: $light-blue;
+}
+
+p.weeks-20-to-25 {
+    color: $medium-blue;
+}
+
+p.weeks-25-to-30 {
+    color: $dark-blue;
+}
+
+p.weeks-30-to-35 {
+    color: $darkest-blue;
+}
+
+.datepickers {
+    margin: 0 auto;
+    width: 817px;
+}
