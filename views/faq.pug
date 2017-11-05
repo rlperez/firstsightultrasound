@@ -35,6 +35,13 @@ block append content
                             img.left(src=PrismicDOM.Link.url(data.title_image))
                         div !{PrismicDOM.RichText.asHtml(data.tagline)}
 
+    section.datepickers
+        .container
+            br
+            .row.centered
+                .datepicker.col-lg-12.mx-auto#ultrasound_calendar
+
+
     section.content-section.text-left
         .container
             .row
@@ -47,4 +54,3 @@ block append content
                                     a(data-toggle="collapse" data-target="#collapse_" + i href="javascript:void(0);"  aria-controls="collapse_" + i aria-expanded=(i === 0) ? "true" : "false") !{PrismicDOM.RichText.asHtml(faq.title)}
                                 div(id="collapse_" + i role="tabpanel" aria-labelledby="heading_" + i data-parent="#accordion" class=(i === 0) ? "collapse show" : "collapse" )
                                     .faq_text.card-body !{PrismicDOM.RichText.asHtml(faq.text)}
-

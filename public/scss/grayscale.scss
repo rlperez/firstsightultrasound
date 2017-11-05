@@ -346,3 +346,25 @@ img::-moz-selection {
 body {
     -webkit-tap-highlight-color: fade-out(white, .8);
 }
+
+.highlighted-30-to-35 a {
+    background-color: $darkest-blue !important;
+    color: #ffffff !important;
+}
+.highlighted-25-to-30 a {
+    background-color: $dark-blue !important;
+    color: #ffffff !important;
+}
+.highlighted-20-to-25 a {
+    background-color: $medium-blue !important;
+    color: #ffffff !important;
+}
+.highlighted-15-to-20 a {
+    background-color: $light-blue !important;
+    color: #ffffff !important;
+}
+.highlighted-10-to-15 a {
+    background-color: $lightest-blue !important;
+    color: #ffffff !important;
+}
+
