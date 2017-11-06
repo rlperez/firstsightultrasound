@@ -210,7 +210,7 @@ function init() {
     '<div class="iw-content">' +
     '1134 York Rd. Suite 109' +
     '<br>Lutherville, MD 21093' +
-    '<br>Phone. (443) 797-7553' +
+    '<br>Phone. (443) 353-9330' +
     '</div>' +
     '</div>';
   var infowindow = new google.maps.InfoWindow({
