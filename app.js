@@ -47,7 +47,7 @@ app.route('/').get((req, res) => {
                 data: document.data,
                 services: document.data.services
             });
-            console.log(document.data);
+            // console.log(document.data);
         })
         .catch((err) => {
             res.status(500).send(`Error 500: ${err.message}`);
@@ -63,6 +63,7 @@ app.route('/faq').get((req, res) => {
                 data: document.data,
                 faqs: titleAndText(document.data)
             });
+            // console.log(document.data);
         })
         .catch((err) => {
             res.status(500).send(`Error 500: ${err.message}`);
