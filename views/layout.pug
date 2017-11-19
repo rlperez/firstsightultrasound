@@ -12,6 +12,12 @@ html(lang="en")
         include  partials/styles.pug
         include  partials/scripts.pug
 
-    body#page-top
+    body#home
+        // preloader
+        .preloader
+          #loading
+            #loading-center
+              #loading-center-absolute
+                #object_one.object
         block content
         include partials/footer.pug
