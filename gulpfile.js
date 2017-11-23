@@ -32,7 +32,7 @@ gulp.task('minify-css', function () {
 
 // Minify custom JS
 gulp.task('minify-js', function () {
-  return gulp.src(['public/js/main.js', 'public/js/plugin.js', 'public/js/scrolling-nav.js', 'public/js/jqBootstrapValidation.js', 'public/js/SmoothScroll.js', 'public/js/wow.js', 'public/js/typing.js', 'public/js/jquery.ytplayer.js', 'public/js/jquery.sticky.js', 'public/js/calendar.js', 'public/js/custom.js', 'public/js/contact.js'])
+  return gulp.src(['public/js/main.js', 'public/js/plugin.js', 'public/js/calendar.js', 'public/js/custom.js', 'public/js/contact.js'])
         .pipe(uglify())
         .pipe(header(banner, {
             pkg: pkg
