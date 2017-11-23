@@ -34,7 +34,7 @@ app.use((req, res, next) => {
             const message = err.status === 404 ? 'There was a problem connecting to your API, please check your configuration file for errors.' : `Error 500: ${err.message}`;
             res.status(err.status).send(message);
         });
-});
+}); 
 
 /*
  * Route with documentation to build your project with prismic
@@ -47,7 +47,7 @@ app.route('/').get((req, res) => {
                 data: document.data,
                 services: document.data.services
             });
-            // console.log(document.data);
+            console.log(document.data);
         })
         .catch((err) => {
             res.status(500).send(`Error 500: ${err.message}`);
@@ -63,7 +63,7 @@ app.route('/faq').get((req, res) => {
                 data: document.data,
                 faqs: titleAndText(document.data)
             });
-            // console.log(document.data);
+            console.log(`FAQ: ${document.data}`);
         })
         .catch((err) => {
             res.status(500).send(`Error 500: ${err.message}`);
@@ -79,7 +79,7 @@ app.route('/gallery').get((req, res) => {
         data: document.data,
         galleryImages: document.data.body[0].value
       });
-      // console.log(document.data.body[0].value[0].image.url);
+      console.log(`Galler: ${document.data}`);
     })
     .catch((err) => {
       res.status(500).send(`Error 500: ${err.message}`);
@@ -98,7 +98,7 @@ function titleAndText(data) {
 
 /*
  * Prismic documentation to build your project with prismic
- */
+
 app.get('/help', (req, res) => {
     const repoRegexp = /^(https?:\/\/([-\w]+)\.[a-z]+\.(io|dev))\/api(\/v2)?$/;
     const [_, repoURL, name, extension, apiVersion] = PrismicConfig.apiEndpoint.match(repoRegexp);
@@ -106,10 +106,11 @@ app.get('/help', (req, res) => {
     const isConfigured = name !== 'your-repo-name';
     res.render('help', { isConfigured, repoURL, name, host });
 });
+ */
 
 /*
  * Preconfigured prismic preview
- */
+
 app.get('/preview', (req, res) => {
     const token = req.query.token;
     if (token) {
@@ -125,3 +126,4 @@ app.get('/preview', (req, res) => {
         res.send(400, 'Missing token from querystring');
     }
 });
+ */
