@@ -1,39 +1,48 @@
 ﻿extends ./layout.pug
 
 block append content
-    section#faq.masthead(style='background: url(' + PrismicDOM.Link.url(data.backgroundImage) + ') no-repeat bottom center scroll').text-center
-        .intro-body
-            .container
-                .row
-                    .col-lg-8.mx-auto
-                        h1
-                            img.left(src=PrismicDOM.Link.url(data.title_image))
-                        div !{PrismicDOM.RichText.asHtml(data.tagline)}
+    section.home-text-banner.overflow
+      .banner-text-area.dark-overlay(style='background:url(' + PrismicDOM.Link.url(data.backgroundImage) + ') no-repeat center center')
+        .row
+          .col-md-offset-2.col-md-8
+            .banner-text-content
+              .banner-text-heading
+                h2.wow.fadeInUp(data-wow-delay='400ms') 
+                  img.left(src=PrismicDOM.Link.url(data.title_image))
+                h2.wow.fadeInUp(data-wow-delay='600ms')
+                  span !{PrismicDOM.RichText.asHtml(data.tagline)}
 
     section.content-section.text-left
         .container
             .row
                 .col-lg-12.mx-auto
-                    #accordion(role="tablist")
-                        .card
-                            .faq_title.card-header(role="tab" id="heading_0") 
-                                a(data-toggle="collapse" data-target="#collapse_0" href="javascript:void(0);"  aria-controls="collapse_0" aria-expanded="true")
-                                    h3 When Is The Best Time To Take A Peek At Your Baby?
-                            div(id="collapse_0" role="tabpanel" aria-labelledby="heading_0" data-parent="#accordion" class="collapse show")
-                                .faq_text.card-body 
+                    br
+                    br
+                    #accordion.panel-group
+                        .panel-info(id='panel_0')
+                            .panel-heading
+                                h3.panel-title.faq_title
+                                    a(data-toggle='collapse', data-target='#accordion', href='#collapse_0') 
+                                        h3 When Is The Best Time To Take A Peek At Your Baby?
+                            .panel-collapse.collapse.in(id="collapse_0")
+                                .faq_text
                                     p.lead.weeks-15-to-20 Weeks 15–20: Best time to see your Baby's entire body, but the face may not be visible.
                                     p.lead.weeks-20-to-25 Weeks 20–25: Capture the first images of your Baby's facial features! This is also the optimal time to visualize fetal movement – i.e. your Baby moving its head, hands, arms & feet!
                                     p.lead.weeks-25-to-30 Weeks 25–30: Your Baby's features are more defined & developed -- plus see how much your Baby has grown!
                                     p.lead.weeks-30-to-35 Weeks 30–35: Although your Baby is nearly full-grown & is too big to be captured in 1 image, your Baby can now be visualized in great detail. It's like having "close-up" session!
                                     br
-                                    .datepickers
-                                        .datepicker.col-lg-12.mx-auto#ultrasound_calendar
-
-
-                    for slice in faqs
-                        each faq, i in slice.value
-                            .card
-                                .faq_title.card-header(role="tab" id="heading_" + (i + 1)) 
-                                    a(data-toggle="collapse" data-target="#collapse_" + (i + 1) href="javascript:void(0);"  aria-controls="collapse_" + (i + 1) aria-expanded="false") !{PrismicDOM.RichText.asHtml(faq.title)}
-                                div(id="collapse_" + (i + 1) role="tabpanel" aria-labelledby="heading_" + (i + 1) data-parent="#accordion" class="collapse" )
-                                    .faq_text.card-body !{PrismicDOM.RichText.asHtml(faq.text)}
+                                    center
+                                        .datepickers
+                                            .datepicker.col-lg-12.mx-auto#ultrasound_calendar
+                            .clearfix
+                            br
+                        for slice in faqs
+                            each faq, i in slice.value
+                                .panel-info(id='panel_' + (i + 1))
+                                    .panel-heading
+                                        h3.panel-title.faq_title
+                                            a(data-toggle='collapse', data-target='#accordion', href='#collapse_' + (i + 1)) !{PrismicDOM.RichText.asHtml(faq.title)}
+                                    .panel-collapse.collapse.in(id='collapse_' + (i + 1))
+                                        .faq_text !{PrismicDOM.RichText.asHtml(faq.text)}
+                                    .clearfix
+                                    br
