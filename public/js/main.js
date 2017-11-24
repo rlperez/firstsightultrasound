@@ -243,7 +243,6 @@ $(document).ready(function () {
     
     if ($('#is_home').val() !== 'true') {
       $('#main-menu a').each(function () {
-        console.log(this);
         $(this).attr('href', 'http://' + window.location.host + '/' + $(this).attr('href'));
       });
     }
