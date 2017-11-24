@@ -19,5 +19,34 @@ html(lang="en")
             #loading-center
               #loading-center-absolute
                 #object_one.object
+        // header area
+        header#sticky-header.header-area.overflow
+          nav#main-menu.navbar.navbar-default(role='navigation')
+            .container
+              .navbar-header
+                button.navbar-toggle(type='button', data-toggle='collapse', data-target='#myNavbar')
+                  span.sr-only Toggle navigation
+                  span.icon-bar
+                  span.icon-bar
+                  span.icon-bar
+                ul.nav.navbar-nav.navbar-left
+                  li
+                    a.scrolling(href='#home') First Sight Ultrasound
+              #myNavbar.collapse.navbar-collapse
+                ul.nav.navbar-nav.navbar-right
+                  li
+                    a.scrolling(href='#home') Home
+                  li
+                    a.scrolling(href='#about') About us
+                  li
+                    a.scrolling(href='#services') Services
+                  li
+                    a.scrolling(href='#portfolio') Portfolio
+                  li
+                    a.scrolling(href='#blog') Blog
+                  li
+                    a.scrolling(href='#team') Team
+                  li
+                    a.scrolling(href='#contact') Contact
         block content
         include partials/footer.pug
