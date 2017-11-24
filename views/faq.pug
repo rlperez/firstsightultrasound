@@ -19,31 +19,25 @@ block append content
                     br
                     br
                     .clearfix
-                    #accordion.panel-group
-                        .panel-info(id='panel_0')
-                            .panel-heading
-                                .panel-title.faq_title
-                                    a(data-toggle='collapse', data-target='#accordion', href='#collapse_0') 
-                                        h3 When Is The Best Time To Take A Peek At Your Baby?
-                            .panel-collapse.collapse.in(id="#collapse_0")
-                                .faq_text
-                                    p.lead.weeks-15-to-20 Weeks 15–20: Best time to see your Baby's entire body, but the face may not be visible.
-                                    p.lead.weeks-20-to-25 Weeks 20–25: Capture the first images of your Baby's facial features! This is also the optimal time to visualize fetal movement – i.e. your Baby moving its head, hands, arms & feet!
-                                    p.lead.weeks-25-to-30 Weeks 25–30: Your Baby's features are more defined & developed -- plus see how much your Baby has grown!
-                                    p.lead.weeks-30-to-35 Weeks 30–35: Although your Baby is nearly full-grown & is too big to be captured in 1 image, your Baby can now be visualized in great detail. It's like having "close-up" session!
-                                    br
-                                    center
-                                        .datepickers
-                                            .datepicker.col-lg-12.mx-auto#ultrasound_calendar
-                            .clearfix
+                    .panel(id='panel_0')
+                        .panel-heading.faq_title
+                            h3 When Is The Best Time To Take A Peek At Your Baby?
+                        .panel-body.faq_text
+                            p.lead.weeks-15-to-20 Weeks 15–20: Best time to see your Baby's entire body, but the face may not be visible.
+                            p.lead.weeks-20-to-25 Weeks 20–25: Capture the first images of your Baby's facial features! This is also the optimal time to visualize fetal movement – i.e. your Baby moving its head, hands, arms & feet!
+                            p.lead.weeks-25-to-30 Weeks 25–30: Your Baby's features are more defined & developed -- plus see how much your Baby has grown!
+                            p.lead.weeks-30-to-35 Weeks 30–35: Although your Baby is nearly full-grown & is too big to be captured in 1 image, your Baby can now be visualized in great detail. It's like having "close-up" session!
                             br
-                        for slice in faqs
-                            each faq, i in slice.value
-                                .panel-info(id='panel_' + (i + 1))
-                                    .panel-heading
-                                        .panel-title.faq_title
-                                            a(data-toggle='collapse', data-target='#accordion', href='#collapse_' + (i + 1)) !{PrismicDOM.RichText.asHtml(faq.title)}
-                                    .panel-collapse.collapse(id='#collapse_' + (i + 1))
-                                        .faq_text !{PrismicDOM.RichText.asHtml(faq.text)}
-                                    .clearfix
-                                    br
+                            center
+                                .datepickers
+                                    .datepicker.col-lg-12.mx-auto#ultrasound_calendar
+                        .clearfix
+                        br
+                    for slice in faqs
+                        each faq, i in slice.value
+                            .panel(id='panel_' + (i + 1))
+                                .panel-heading.faq_title 
+                                  | !{PrismicDOM.RichText.asHtml(faq.title)}
+                                .panel-body.faq_text !{PrismicDOM.RichText.asHtml(faq.text)}
+                                .clearfix
+                                br
