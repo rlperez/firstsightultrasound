@@ -15,7 +15,6 @@ $(document).ready(function () {
       opacity: 1,
     });
 
-
     //this is for blog area
     $('.recent-blog').owlCarousel({
       loop: true,
@@ -239,7 +238,15 @@ $(document).ready(function () {
       }
     });
 
-
+    // Fix nav urls when not on homepage
+    
+    
+    if ($('#is_home').val() !== 'true') {
+      $('#main-menu a').each(function () {
+        console.log(this);
+        $(this).attr('href', 'http://' + window.location.host + '/' + $(this).attr('href'));
+      });
+    }
 
     //Preloader
     var preloader = $('.preloader');
