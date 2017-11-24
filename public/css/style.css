@@ -2467,6 +2467,56 @@ p {
 
 
 
+.highlighted-30-to-35 a {
+    background-color: #2B667F !important;
+    color: #ffffff !important;
+}
+
+.highlighted-25-to-30 a {
+    background-color: #045374 !important;
+    color: #ffffff !important;
+}
+
+.highlighted-20-to-25 a {
+    background-color: #0792CC !important;
+    color: #ffffff !important;
+}
+
+.highlighted-15-to-20 a {
+    background-color: #09B6FF !important;
+    color: #ffffff !important;
+}
+
+.highlighted-10-to-15 a {
+    background-color: #55CDFF !important;
+    color: #ffffff !important;
+}
+
+p.weeks-10-to-15 {
+    color: #55CDFF;
+}
+
+p.weeks-15-to-20 {
+    color: #09B6FF;
+}
+
+p.weeks-20-to-25 {
+    color: #0792CC;
+}
+
+p.weeks-25-to-30 {
+    color: #045374;
+}
+
+p.weeks-30-to-35 {
+    color: #2B667F;
+}
+
+.datepickers {
+    margin: 0 auto;
+    width: 817px;
+}
+
 
 
 /*
