@@ -6,6 +6,8 @@ const Cookies = require('cookies');
 const PrismicConfig = require('./prismic-configuration');
 const Onboarding = require('./onboarding');
 const app = require('./config');
+const sendmail = require('sendmail')({ silent: true });
+const bodyParser = require('body-parser');
 
 const PORT = app.get('port');
 
@@ -14,6 +16,8 @@ app.listen(PORT, () => {
     Onboarding.trigger();
     process.stdout.write(`Point your browser to: http://localhost:${PORT}\n`);
 });
+
+app.use(bodyParser.json());
 
 // Middleware to inject prismic context
 /*
@@ -85,6 +89,31 @@ app.route('/gallery').get((req, res) => {
       res.status(500).send(`Error 500: ${err.message}`);
       console.log(err.message);
     });
+});
+
+app.route('/contact').post((req, res) => {
+  console.log(`Sending mail message: ${JSON.stringify(req.body)}`);
+  var message = req.body.message.split('\n').map(s => `<p>${s}</p>`).join('<br />');
+  console.log(message);
+  sendmail({
+    from: 'no-reply@firstsightultrasound.com',
+    to: 'daftblight@gmail.com',
+    subject: 'Contact Form Message',
+    html: `<html>
+              <header><title></title></header>
+              <body>
+                <p><b>Name:</b> ${req.body.name}</p>
+                <p><b>Email:</b> ${req.body.email}</p>
+                <p><b>Phone:</b> ${req.body.phone}</p>
+                <p><b>Message:</b><br /> ${message}</p>
+              </body>
+           </html>`,
+  }, function (err, reply) {
+    res.status(500).send(`Error 500: ${err.message}`);
+    console.log(err && err.stack);
+    console.dir(reply);
+    console.log(`Failed to send mail message ${JSON.stringify(req.body)}`);
+  });
 });
 
 function titleAndText(data) {
