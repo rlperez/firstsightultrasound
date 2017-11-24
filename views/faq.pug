@@ -18,13 +18,14 @@ block append content
                 .col-lg-12.mx-auto
                     br
                     br
+                    .clearfix
                     #accordion.panel-group
                         .panel-info(id='panel_0')
                             .panel-heading
-                                h3.panel-title.faq_title
+                                .panel-title.faq_title
                                     a(data-toggle='collapse', data-target='#accordion', href='#collapse_0') 
                                         h3 When Is The Best Time To Take A Peek At Your Baby?
-                            .panel-collapse.collapse.in(id="collapse_0")
+                            .panel-collapse.collapse.in(id="#collapse_0")
                                 .faq_text
                                     p.lead.weeks-15-to-20 Weeks 15–20: Best time to see your Baby's entire body, but the face may not be visible.
                                     p.lead.weeks-20-to-25 Weeks 20–25: Capture the first images of your Baby's facial features! This is also the optimal time to visualize fetal movement – i.e. your Baby moving its head, hands, arms & feet!
@@ -40,9 +41,9 @@ block append content
                             each faq, i in slice.value
                                 .panel-info(id='panel_' + (i + 1))
                                     .panel-heading
-                                        h3.panel-title.faq_title
+                                        .panel-title.faq_title
                                             a(data-toggle='collapse', data-target='#accordion', href='#collapse_' + (i + 1)) !{PrismicDOM.RichText.asHtml(faq.title)}
-                                    .panel-collapse.collapse.in(id='collapse_' + (i + 1))
+                                    .panel-collapse.collapse(id='#collapse_' + (i + 1))
                                         .faq_text !{PrismicDOM.RichText.asHtml(faq.text)}
                                     .clearfix
                                     br
