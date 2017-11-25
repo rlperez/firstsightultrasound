@@ -218,19 +218,24 @@ function getFacebookPosts() {
         console.log(error);
         return reject(error);
       }
+      var fields = 'id,caption,created_time,description,icon,link,message,name,permalink_url,picture,source,status_type,type'
+      var limit = 10
       request({
-        url: URI.serialize(URI.parse(`https:\/\/graph.facebook.com/v2.11/loveatfirstsightultrasound/posts?limit=10&access_token=${JSON.parse(body).access_token}`))
+        url: URI.serialize(URI.parse(`https:\/\/graph.facebook.com/v2.11/loveatfirstsightultrasound/posts?fields=${fields}&limit=${limit}&access_token=${JSON.parse(body).access_token}`))
       }, function (error, response, body) {
         if (error) {
           console.log(error);
           return reject(error);
         }
         var posts = JSON.parse(body);
-        posts = posts.data.map(p => {
-          p['social_media_source'] = 'facebook';
-          p['created_time'] = Date.parse(p.created_time);
-          return p;
-        });
+        posts = posts.data
+          .filter(p => p.status_type !== 'mobile_status_update')
+          .map(p => {
+            p['social_media_source'] = 'facebook';
+            p['created_time'] = Date.parse(p.created_time);
+            return p;
+          });
+        console.log(posts);
         resolve(posts);
       });
     });
