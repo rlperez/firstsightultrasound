@@ -27,7 +27,8 @@
     "request": "~2.81.0",
     "sendmail": "^1.2.0",
     "serve-favicon": "~2.4.3",
-    "uri-js": "^3.0.2"
+    "uri-js": "^3.0.2",
+    "twitter": "^1.7.1"
   },
   "repository": {
     "type": "git",

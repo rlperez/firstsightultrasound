@@ -10,10 +10,15 @@ const sendmail = require('sendmail')({ silent: true });
 const bodyParser = require('body-parser');
 const https = require('https');
 const URI = require("uri-js");
+const Twitter = require('twitter');
 
 const PORT = app.get('port');
 const FB_APP_SECRET = process.env.FB_APP_SECRET;
 const FB_APP_ID = process.env.FB_APP_ID;
+const TWIT_CONSUMER_KEY = process.env.TWIT_CONSUMER_KEY;
+const TWIT_CONSUMER_SECRET = process.env.TWIT_CONSUMER_SECRET;
+const TWIT_ACCESS_TOKEN = process.env.TWIT_ACCESS_TOKEN;
+const TWIT_ACCESS_TOKEN_SECRET = process.env.TWIT_ACCESS_TOKEN_SECRET;
 
 const FB_AT_OPTIONS = {
   host: 'graph.facebook.com',
@@ -27,6 +32,13 @@ const FB_POST_OPTIONS = {
   port: 443,
   path: `/v2.11/loveatfirstsightultrasound/posts?limit=5&access_token=`,
   method: 'GET'
+}
+
+const TWITTER_OPTIONS = {
+  consumer_key: TWIT_CONSUMER_KEY,
+  consumer_secret: TWIT_CONSUMER_SECRET,
+  access_token_key: TWIT_ACCESS_TOKEN,
+  access_token_secret: TWIT_ACCESS_TOKEN_SECRET
 }
 
 app.listen(PORT, () => {
@@ -65,14 +77,28 @@ app.route('/').get((req, res) => {
     .then((document) => {
       var images = getGalleryImages(document.data.body);
       var tags = getGalleryTags(images);
-      res.render('homepage', {
-        pageContent: document,
-        data: document.data,
-        services: document.data.services,
-        galleryImages: images,
-        galleryTags: tags
+      getSocialMediaPosts().then(posts => {
+        console.log(posts);
+        res.render('homepage', {
+          pageContent: document,
+          data: document.data,
+          services: document.data.services,
+          galleryImages: images,
+          galleryTags: tags,
+          socialMedia: posts
+        });
+      }, reason => {
+        // If for some reason the social media fails.
+        console.log(reason);
+        res.render('homepage', {
+          pageContent: document,
+          data: document.data,
+          services: document.data.services,
+          galleryImages: images,
+          galleryTags: tags,
+          socialMedia: []
+        });
       });
-      // console.log(`Home: ${document.data}`);
     })
     .catch((err) => {
       res.status(500).send(`Error 500: ${err.message}`);
@@ -157,19 +183,67 @@ function getGalleryImages(body) {
   return body.find(s => s.slice_type === 'gallery').value;
 }
 
+function getSocialMediaPosts() {
+  var posts = [getFacebookPosts(), getTweets()]
+  return Promise.all(posts).then(values => {
+    return []
+      .concat
+      .apply([], values)
+      .sort((a, b) => {
+        return getSocialMediaDateTime(b) - getSocialMediaDateTime(a);
+      });
+  }, reason => {
+    console.log(reason)
+  });
+}
+
+function getSocialMediaDateTime(post) {
+  if (post.social_media_source === 'facebook') {
+    return Date.parse(post.created_time);
+  } else if (post.social_media_source === 'twitter') {
+    return Date.parse(post.created_at);
+  } else {
+    return 0;
+  }
+}
+
 function getFacebookPosts() {
-  return new Promise(function (resolve) {
+  return new Promise(function (resolve, reject) {
     // Get FB auth token
     request({
       url: URI.serialize(URI.parse(`https:\/\/graph.facebook.com/oauth/access_token?type=client_cred&client_id=${FB_APP_ID}&client_secret=${FB_APP_SECRET}`))
     }, function (error, response, body) {
       // Get FB posts
-      console.log(URI.serialize(URI.parse(`https:\/\/graph.facebook.com/v2.11/loveatfirstsightultrasound/posts?limit=5&access_token=${JSON.parse(body).access_token}`)));
+      if (error) {
+        console.log(error);
+        return reject(error);
+      }
       request({
-        url: URI.serialize(URI.parse(`https:\/\/graph.facebook.com/v2.11/loveatfirstsightultrasound/posts?limit=5&access_token=${JSON.parse(body).access_token}`))
+        url: URI.serialize(URI.parse(`https:\/\/graph.facebook.com/v2.11/loveatfirstsightultrasound/posts?limit=10&access_token=${JSON.parse(body).access_token}`))
       }, function (error, response, body) {
-        resolve(body);
+        if (error) {
+          console.log(error);
+          return reject(error);
+        }
+        var posts = JSON.parse(body);
+        posts = posts.data.map(p => { p['social_media_source'] = 'facebook'; return p; });
+        resolve(posts);
       });
+    });
+  });
+}
+
+function getTweets() {
+  return new Promise(function (resolve, reject) {
+    var client = new Twitter(TWITTER_OPTIONS);
+    client.get('search/tweets', { q: 'twitterapi', count: 10 }, function (error, tweets, response) {
+      if (error) {
+        console.log(error);
+        return reject(error);
+      }
+
+      tweets = tweets.statuses.map(t => { t['social_media_source'] = 'twitter'; return t; });
+      resolve(tweets);
     });
   });
 }
