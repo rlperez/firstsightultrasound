@@ -8,9 +8,26 @@ const Onboarding = require('./onboarding');
 const app = require('./config');
 const sendmail = require('sendmail')({ silent: true });
 const bodyParser = require('body-parser');
+const https = require('https');
+const URI = require("uri-js");
 
 const PORT = app.get('port');
+const FB_APP_SECRET = process.env.FB_APP_SECRET;
+const FB_APP_ID = process.env.FB_APP_ID;
 
+const FB_AT_OPTIONS = {
+  host: 'graph.facebook.com',
+  port: 443,
+  path: `/oauth/access_token?type=client_cred&client_id=${FB_APP_ID}&client_secret=${FB_APP_SECRET}`,
+  method: 'GET'
+};
+
+const FB_POST_OPTIONS = {
+  host: 'graph.facebook.com',
+  port: 443,
+  path: `/v2.11/loveatfirstsightultrasound/posts?limit=5&access_token=`,
+  method: 'GET'
+}
 
 app.listen(PORT, () => {
   Onboarding.trigger();
@@ -55,7 +72,7 @@ app.route('/').get((req, res) => {
         galleryImages: images,
         galleryTags: tags
       });
-      console.log(`Home: ${document.data}`);
+      // console.log(`Home: ${document.data}`);
     })
     .catch((err) => {
       res.status(500).send(`Error 500: ${err.message}`);
@@ -84,7 +101,6 @@ app.route('/gallery').get((req, res) => {
     .then((document) => {
       var images = getGalleryImages(document.data.body);
       var tags = getGalleryTags(images);
-      console.log(images);
       res.render('gallery', {
         pageContent: document,
         data: document.data,
@@ -140,34 +156,20 @@ function getGalleryTags(images) {
 function getGalleryImages(body) {
   return body.find(s => s.slice_type === 'gallery').value;
 }
-/*
- * Prismic documentation to build your project with prismic
 
-app.get('/help', (req, res) => {
-    const repoRegexp = /^(https?:\/\/([-\w]+)\.[a-z]+\.(io|dev))\/api(\/v2)?$/;
-    const [_, repoURL, name, extension, apiVersion] = PrismicConfig.apiEndpoint.match(repoRegexp);
-    const host = req.headers.host;
-    const isConfigured = name !== 'your-repo-name';
-    res.render('help', { isConfigured, repoURL, name, host });
-});
- */
-
-/*
- * Preconfigured prismic preview
-
-app.get('/preview', (req, res) => {
-    const token = req.query.token;
-    if (token) {
-        req.prismic.api.previewSession(token, PrismicConfig.linkResolver, '/')
-            .then((url) => {
-                const cookies = new Cookies(req, res);
-                cookies.set(Prismic.previewCookie, token, { maxAge: 30 * 60 * 1000, path: '/', httpOnly: false });
-                res.redirect(302, url);
-            }).catch((err) => {
-                res.status(500).send(`Error 500 in preview: ${err.message}`);
-            });
-    } else {
-        res.send(400, 'Missing token from querystring');
-    }
-});
- */
+function getFacebookPosts() {
+  return new Promise(function (resolve) {
+    // Get FB auth token
+    request({
+      url: URI.serialize(URI.parse(`https:\/\/graph.facebook.com/oauth/access_token?type=client_cred&client_id=${FB_APP_ID}&client_secret=${FB_APP_SECRET}`))
+    }, function (error, response, body) {
+      // Get FB posts
+      console.log(URI.serialize(URI.parse(`https:\/\/graph.facebook.com/v2.11/loveatfirstsightultrasound/posts?limit=5&access_token=${JSON.parse(body).access_token}`)));
+      request({
+        url: URI.serialize(URI.parse(`https:\/\/graph.facebook.com/v2.11/loveatfirstsightultrasound/posts?limit=5&access_token=${JSON.parse(body).access_token}`))
+      }, function (error, response, body) {
+        resolve(body);
+      });
+    });
+  });
+}
