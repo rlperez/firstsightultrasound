@@ -13,8 +13,8 @@ const PORT = app.get('port');
 
 
 app.listen(PORT, () => {
-    Onboarding.trigger();
-    process.stdout.write(`Point your browser to: http://localhost:${PORT}\n`);
+  Onboarding.trigger();
+  process.stdout.write(`Point your browser to: http://localhost:${PORT}\n`);
 });
 
 app.use(bodyParser.json());
@@ -24,55 +24,59 @@ app.use(bodyParser.json());
  * Initialize prismic context and api
  */
 app.use((req, res, next) => {
-    Prismic.api(PrismicConfig.apiEndpoint, { accessToken: PrismicConfig.accessToken, req })
-        .then((api) => {
-            req.prismic = { api };
-            res.locals.ctx = {
-                endpoint: PrismicConfig.apiEndpoint,
-                linkResolver: PrismicConfig.linkResolver,
-            };
-            // add PrismicDOM in locals to access them in templates.
-            res.locals.PrismicDOM = PrismicDOM;
-            next();
-        }).catch((err) => {
-            const message = err.status === 404 ? 'There was a problem connecting to your API, please check your configuration file for errors.' : `Error 500: ${err.message}`;
-            res.status(err.status).send(message);
-        });
-}); 
+  Prismic.api(PrismicConfig.apiEndpoint, { accessToken: PrismicConfig.accessToken, req })
+    .then((api) => {
+      req.prismic = { api };
+      res.locals.ctx = {
+        endpoint: PrismicConfig.apiEndpoint,
+        linkResolver: PrismicConfig.linkResolver,
+      };
+      // add PrismicDOM in locals to access them in templates.
+      res.locals.PrismicDOM = PrismicDOM;
+      next();
+    }).catch((err) => {
+      const message = err.status === 404 ? 'There was a problem connecting to your API, please check your configuration file for errors.' : `Error 500: ${err.message}`;
+      res.status(err.status).send(message);
+    });
+});
 
 /*
  * Route with documentation to build your project with prismic
  */
 app.route('/').get((req, res) => {
-    req.prismic.api.getByUID('homepage', 'homepage')
-        .then((document) => {
-            res.render('homepage', {
-                pageContent: document,
-                data: document.data,
-                services: document.data.services
-            });
-            console.log(document.data);
-        })
-        .catch((err) => {
-            res.status(500).send(`Error 500: ${err.message}`);
-            console.log(err.message);
-        });
+  req.prismic.api.getByUID('homepage', 'homepage')
+    .then((document) => {
+      var images = document.data.body.find(s => s.slice_type === 'gallery').value;
+
+      res.render('homepage', {
+        pageContent: document,
+        data: document.data,
+        services: document.data.services,
+        galleryImages: images,
+        galleryTags: [... new Set(images.map(i => i.linkText))]
+      });
+      // console.log(document.data);
+    })
+    .catch((err) => {
+      res.status(500).send(`Error 500: ${err.message}`);
+      console.log(err.message);
+    });
 });
 
 app.route('/faq').get((req, res) => {
-    req.prismic.api.getByUID('page', 'faq')
-        .then((document) => {
-            res.render('faq', {
-                pageContent: document,
-                data: document.data,
-                faqs: titleAndText(document.data)
-            });
-            console.log(`FAQ: ${document.data}`);
-        })
-        .catch((err) => {
-            res.status(500).send(`Error 500: ${err.message}`);
-            console.log(err.message);
-        });
+  req.prismic.api.getByUID('page', 'faq')
+    .then((document) => {
+      res.render('faq', {
+        pageContent: document,
+        data: document.data,
+        faqs: titleAndText(document.data)
+      });
+      console.log(`FAQ: ${document.data}`);
+    })
+    .catch((err) => {
+      res.status(500).send(`Error 500: ${err.message}`);
+      console.log(err.message);
+    });
 });
 
 app.route('/gallery').get((req, res) => {
@@ -117,12 +121,12 @@ app.route('/contact').post((req, res) => {
 });
 
 function titleAndText(data) {
-    return data.body.map(function (slice) {
-        switch (slice.slice_type) {
-            case 'title_and_text':
-                return slice;
-        }
-    });
+  return data.body.map(function (slice) {
+    switch (slice.slice_type) {
+      case 'title_and_text':
+        return slice;
+    }
+  });
 }
 
 /*

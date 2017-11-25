@@ -121,8 +121,6 @@ $(document).ready(function () {
       time: 1000
     });
 
-
-
     // Menu sticky
     $(window).on('scroll', function () {
       var scroll = $(window).scrollTop();
@@ -132,8 +130,6 @@ $(document).ready(function () {
         $("#sticky-header").addClass("sticky-menu");
       }
     });
-
-
 
     // Navbar collapse on click
     $('.nav a').on('click', function () {
@@ -147,12 +143,6 @@ $(document).ready(function () {
 
     // Wow js
     new WOW().init();
-
-
-
-
-
-
 
     //this is for home-slider page	
     $('.banner-slider-items').owlCarousel({
@@ -194,9 +184,6 @@ $(document).ready(function () {
         }
       }
     });
-
-
-
 
     // Portfolio Area
     $('.grid').imagesLoaded(function () {
@@ -246,8 +233,6 @@ $(document).ready(function () {
     });
 
     // Fix nav urls when not on homepage
-    
-    
     if ($('#is_home').val() !== 'true') {
       $('#main-menu a').each(function () {
         $(this).attr('href', 'http://' + window.location.host + '/' + $(this).attr('href'));
