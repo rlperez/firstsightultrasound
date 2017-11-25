@@ -82,10 +82,17 @@ $(document).ready(function () {
       }
     });
 
-
-
-
     //this is for project area
+
+    // Handle book now clicks for subscribe modal
+    $('.team-heading a.small-btn.btn-default[name=schedule]').click(
+      function (e) {
+        e.preventDefault();
+        var modal = $('#accuity_scheduling_modal');
+        modal.find('#scheduling_iframe').attr('src', $(this).prop('href'));
+        modal.modal('toggle');
+        return false;
+      });
 
     $('.work-content-area').owlCarousel({
       loop: true,
