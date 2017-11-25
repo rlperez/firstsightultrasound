@@ -46,16 +46,16 @@ app.use((req, res, next) => {
 app.route('/').get((req, res) => {
   req.prismic.api.getByUID('homepage', 'homepage')
     .then((document) => {
-      var images = document.data.body.find(s => s.slice_type === 'gallery').value;
-
+      var images = getGalleryImages(document.data.body);
+      var tags = getGalleryTags(images);
       res.render('homepage', {
         pageContent: document,
         data: document.data,
         services: document.data.services,
         galleryImages: images,
-        galleryTags: [... new Set(images.map(i => i.linkText))]
+        galleryTags: tags
       });
-      // console.log(document.data);
+      console.log(`Home: ${document.data}`);
     })
     .catch((err) => {
       res.status(500).send(`Error 500: ${err.message}`);
@@ -82,12 +82,16 @@ app.route('/faq').get((req, res) => {
 app.route('/gallery').get((req, res) => {
   req.prismic.api.getByUID('page', 'gallery')
     .then((document) => {
+      var images = getGalleryImages(document.data.body);
+      var tags = getGalleryTags(images);
+      console.log(images);
       res.render('gallery', {
         pageContent: document,
         data: document.data,
-        galleryImages: document.data.body[0].value
+        galleryImages: images,
+        galleryTags: tags
       });
-      console.log(`Galler: ${document.data}`);
+      console.log(`Gallery: ${document.data}`);
     })
     .catch((err) => {
       res.status(500).send(`Error 500: ${err.message}`);
@@ -129,6 +133,13 @@ function titleAndText(data) {
   });
 }
 
+function getGalleryTags(images) {
+  return [... new Set(images.map(i => i.linkText).filter(t => t !== null))];
+}
+
+function getGalleryImages(body) {
+  return body.find(s => s.slice_type === 'gallery').value;
+}
 /*
  * Prismic documentation to build your project with prismic
 
