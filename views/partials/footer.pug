@@ -10,7 +10,7 @@ block append footer
               .social-media
                 if data.social_media
                   for link in data.social_media
-                    a(href=link.social_media_link.url)
+                    a(href=link.social_media_link.url, target='_blank')
                         if link.social_media_name === 'twitter'
                             i.fa.fa-twitter.fa-fw
                         else if link.social_media_name === 'instagram'
