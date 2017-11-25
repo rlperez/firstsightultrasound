@@ -199,9 +199,9 @@ function getSocialMediaPosts() {
 
 function getSocialMediaDateTime(post) {
   if (post.social_media_source === 'facebook') {
-    return Date.parse(post.created_time);
+    return post.created_time;
   } else if (post.social_media_source === 'twitter') {
-    return Date.parse(post.created_at);
+    return post.created_at;
   } else {
     return 0;
   }
@@ -226,7 +226,11 @@ function getFacebookPosts() {
           return reject(error);
         }
         var posts = JSON.parse(body);
-        posts = posts.data.map(p => { p['social_media_source'] = 'facebook'; return p; });
+        posts = posts.data.map(p => {
+          p['social_media_source'] = 'facebook';
+          p['created_time'] = Date.parse(p.created_time);
+          return p;
+        });
         resolve(posts);
       });
     });
@@ -242,7 +246,11 @@ function getTweets() {
         return reject(error);
       }
 
-      tweets = tweets.statuses.map(t => { t['social_media_source'] = 'twitter'; return t; });
+      tweets = tweets.statuses.map(t => {
+        t['social_media_source'] = 'twitter';
+        t['created_at'] = Date.parse(t.created_at);
+        return t;
+      });
       resolve(tweets);
     });
   });
