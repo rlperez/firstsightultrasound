@@ -245,7 +245,7 @@ function getFacebookPosts() {
 function getTweets() {
   return new Promise(function (resolve, reject) {
     var client = new Twitter(TWITTER_OPTIONS);
-    client.get('search/tweets', { q: 'twitterapi', count: 10 }, function (error, tweets, response) {
+    client.get('search/tweets', { q: 'luvat1stsight4d', count: 10 }, function (error, tweets, response) {
       if (error) {
         console.log(error);
         return reject(error);
