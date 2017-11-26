@@ -8,6 +8,8 @@ const Onboarding = require('./onboarding');
 const app = require('./config');
 const sendmail = require('sendmail')({
   logger: {
+    debug: console.log,
+    info: console.info,
     warn: console.warn,
     error: console.error
   },
@@ -165,11 +167,12 @@ app.route('/contact').post((req, res) => {
               </body>
            </html>`,
   }, function (err, reply) {
-    res.status(500).send(`Error 500`);
+    res.status(500).send(`Server Unavailable`);
     console.log(err && err.stack);
     console.dir(reply);
     console.log(`Failed to send mail message ${JSON.stringify(req.body)}`);
   });
+  res.status(200).send('OK');
 });
 
 function titleAndText(data) {
