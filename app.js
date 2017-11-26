@@ -86,7 +86,8 @@ app.route('/').get((req, res) => {
       var images = getGalleryImages(document.data.body);
       var tags = getGalleryTags(images);
       getSocialMediaPosts().then(posts => {
-        console.log(posts);
+        console.log(`Home: \n${JSON.stringify(document.data)}`);
+        console.log(`Posts: \n${JSON.stringify(posts)}`);
         res.render('homepage', {
           pageContent: document,
           data: document.data,
@@ -109,7 +110,7 @@ app.route('/').get((req, res) => {
       });
     })
     .catch((err) => {
-      res.status(500).send(`Error 500: ${err.message}`);
+      res.status(500).send(`Error 500: \n${err.message}`);
       console.log(err.message);
     });
 });
@@ -125,7 +126,7 @@ app.route('/faq').get((req, res) => {
       console.log(`FAQ: ${document.data}`);
     })
     .catch((err) => {
-      res.status(500).send(`Error 500: ${err.message}`);
+      res.status(500).send(`Error 500: \n${err.message}`);
       console.log(err.message);
     });
 });
@@ -141,10 +142,10 @@ app.route('/gallery').get((req, res) => {
         galleryImages: images,
         galleryTags: tags
       });
-      console.log(`Gallery: ${document.data}`);
+      console.log(`Gallery: \n${document.data}`);
     })
     .catch((err) => {
-      res.status(500).send(`Error 500: ${err.message}`);
+      res.status(500).send(`Error 500: \n${err.message}`);
       console.log(err.message);
     });
 });
@@ -167,7 +168,7 @@ app.route('/contact').post((req, res) => {
               </body>
            </html>`,
   }, function (err, reply) {
-    res.status(500).send(`Server Unavailable`);
+    res.status(500).send('Server Unavailable');
     console.log(err && err.stack);
     console.dir(reply);
     console.log(`Failed to send mail message ${JSON.stringify(req.body)}`);
@@ -212,6 +213,7 @@ function getSocialMediaDateTime(post) {
   } else if (post.social_media_source === 'twitter') {
     return post.created_at;
   } else {
+    console.log('Date Time Compare: Unknown social media');
     return 0;
   }
 }
@@ -224,7 +226,7 @@ function getFacebookPosts() {
     }, function (error, response, body) {
       // Get FB posts
       if (error) {
-        console.log(error);
+        console.log(`Facebook: \n${JSON.stringify(error)}`);
         return reject(error);
       }
       var fields = 'id,caption,created_time,description,icon,link,message,name,permalink_url,picture,source,status_type,type'
@@ -233,18 +235,19 @@ function getFacebookPosts() {
         url: URI.serialize(URI.parse(`https:\/\/graph.facebook.com/v2.11/loveatfirstsightultrasound/posts?fields=${fields}&limit=${limit}&access_token=${JSON.parse(body).access_token}`))
       }, function (error, response, body) {
         if (error) {
-          console.log(error);
+          console.log(`Facebook: \n${JSON.stringify(error)}`);
           return reject(error);
         }
         var posts = JSON.parse(body);
-        posts = posts.data
-          .filter(p => p.status_type !== 'mobile_status_update')
-          .map(p => {
-            p['social_media_source'] = 'facebook';
-            p['created_time'] = Date.parse(p.created_time);
-            return p;
-          });
-        console.log(posts);
+        if (posts && posts.data) {
+          posts = posts.data
+            .filter(p => p.status_type !== 'mobile_status_update')
+            .map(p => {
+              p['social_media_source'] = 'facebook';
+              p['created_time'] = Date.parse(p.created_time);
+              return p;
+            });
+        } 
         resolve(posts);
       });
     });
@@ -256,15 +259,16 @@ function getTweets() {
     var client = new Twitter(TWITTER_OPTIONS);
     client.get('search/tweets', { q: 'luvat1stsight4d', count: 10 }, function (error, tweets, response) {
       if (error) {
-        console.log(error);
+        console.log(`Twitter: \n${JSON.stringify(error)}`);
         return reject(error);
       }
-
-      tweets = tweets.statuses.map(t => {
-        t['social_media_source'] = 'twitter';
-        t['created_at'] = Date.parse(t.created_at);
-        return t;
-      });
+      if (tweets && tweets.statuses) {
+        tweets = tweets.statuses.map(t => {
+          t['social_media_source'] = 'twitter';
+          t['created_at'] = Date.parse(t.created_at);
+          return t;
+        });
+      }
       resolve(tweets);
     });
   });
