@@ -6,7 +6,13 @@ const Cookies = require('cookies');
 const PrismicConfig = require('./prismic-configuration');
 const Onboarding = require('./onboarding');
 const app = require('./config');
-const sendmail = require('sendmail')({ silent: true });
+const sendmail = require('sendmail')({
+  logger: {
+    warn: console.warn,
+    error: console.error
+  },
+  silent: true
+});
 const bodyParser = require('body-parser');
 const https = require('https');
 const URI = require("uri-js");
