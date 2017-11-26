@@ -159,7 +159,7 @@ app.route('/contact').post((req, res) => {
               </body>
            </html>`,
   }, function (err, reply) {
-    res.status(500).send(`Error 500: ${err.message}`);
+    res.status(500).send(`Error 500: ${JSON.stringify(err.message)}`);
     console.log(err && err.stack);
     console.dir(reply);
     console.log(`Failed to send mail message ${JSON.stringify(req.body)}`);
