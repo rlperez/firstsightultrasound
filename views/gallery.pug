@@ -1,0 +1,43 @@
+﻿extends ./layout.pug
+
+block append content
+    section.home-text-banner.overflow
+      .banner-text-area.dark-overlay(style='background:url(' + PrismicDOM.Link.url(data.backgroundImage) + ') no-repeat center center')
+        .row
+          .col-md-offset-2.col-md-8
+            .banner-text-content
+              .banner-text-heading
+                h2.wow.fadeInUp(data-wow-delay='400ms') 
+                  img.left(src=PrismicDOM.Link.url(data.title_image))
+                h2.wow.fadeInUp(data-wow-delay='600ms')
+                  span !{PrismicDOM.RichText.asHtml(data.tagline)}
+                a.default-btn.wow.fadeInUp.mt-10.scrolling(href='https://app.acuityscheduling.com/schedule.php?owner=ACUITY_SCHEDULING_OWNER_ID', data-wow-delay='900ms', role='button') Schedule an Appointment
+
+    section#portfolio.portfolio-area.section-padd.overflow
+      .container
+        .row
+          .col-md-12
+            .section-title.mb-40
+              h2
+                | Our 
+                span Portfolio
+        .row
+          .col-md-12
+            .portfolio-menu
+              button.active(data-filter='*') all
+              for entry in galleryTags
+                if entry
+                  - var className = '.' + entry.toLowerCase().replace(/[\W_]+/g, "_")
+                  button(data-filter=className) !{entry}
+        .row.oneline-portfolio-1
+          .grid
+            for img in galleryImages
+                - var className = (img.linkText) ? img.linkText.toLowerCase().replace(/[\W_]+/g, "_") : 'unknown_tag'
+                div(class='col-md-4 col-sm-6 col-xs-12 grid-item ' + className)
+                  .portfolio.hover-portfolio
+                    .portfolio-content
+                      img(src=img.image.url, alt=img.image.text)
+                      .portfolio-view
+                        a.pop-image(href=img.image.url)
+                          i.pe-7s-sun
+                          p At a glance

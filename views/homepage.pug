@@ -1,0 +1,219 @@
+extends ./layout.pug
+
+block append content
+    input(type='hidden', id='is_home' value='true')
+    // /header area
+    section.home-text-banner.overflow
+      .banner-text-area.dark-overlay(style='background:url(' + PrismicDOM.Link.url(data.backgroundImage) + ') no-repeat center center')
+        .row
+          .col-md-offset-2.col-md-8
+            .banner-text-content
+              .banner-text-heading
+                h2.wow.fadeInUp(data-wow-delay='400ms') 
+                  img.left(src=PrismicDOM.Link.url(data.title_image))
+                h2.wow.fadeInUp(data-wow-delay='600ms')
+                  span !{PrismicDOM.RichText.asHtml(data.tagline)}
+                a.default-btn.wow.fadeInUp.mt-10.scrolling(href='#services', data-wow-delay='900ms', role='button') Our Services
+                span &nbsp;&nbsp;
+                a.default-btn.wow.fadeInUp.mt-10.scrolling(href='https://app.acuityscheduling.com/schedule.php?owner=ACUITY_SCHEDULING_OWNER_ID', data-wow-delay='900ms', role='button', target='_blank') Schedule an Appointment
+
+    // about area
+    section#about.about-area.section-padd.overflow
+      .container
+        .row
+          .col-md-6.col-sm-6.col-xs-12
+            .about-content.mb-30
+              .section-title
+                h2
+                  span About
+                  |  us
+              .about-text
+                p.mb-30
+                  |  !{PrismicDOM.RichText.asHtml(data.about_text)}
+                  br
+                  br
+                a.small-btn.scrolling(href='#contact', role='button') Contact us
+          .col-md-6.col-sm-6.col-xs-12
+            .about-view.bw
+              img.img-responsive.wow.fadeInUp(src=PrismicDOM.Link.url(data.about_image), alt='Responsive image', data-wow-delay='200ms')
+    // /about area
+    // service area
+    section#services.service-area.gray-bg.section-padd
+      .container
+        .section-title.mb-50
+          h2
+            | our 
+            span  services
+        .row !{PrismicDOM.RichText.asHtml(data.services_text)}
+        .row
+          .service-content-area.owl-carousel
+            for service, i in data.service_descriptions
+              .service
+                i.pe-7s-camera 
+                  h6.mt-20 !{service.service_name}
+                  p !{service.service_text}
+        a.small-btn(href='/faq', role='button') Frequently Asked Questions
+        span &nbsp;&nbsp;&nbsp;&nbsp;
+        a.small-btn(href='https://app.acuityscheduling.com/schedule.php?owner=ACUITY_SCHEDULING_OWNER_ID', role='button') Schedule an Appointment
+
+    // /service area
+    section#packages.team-area.section-padd.overflow
+      .container
+        .section-title.mb-50
+          h2
+            | Current
+            span  Specials
+        .row-pb-30
+          .team-blog
+            for service, i in services
+                .col-md-3.col-sm-6.col-xs-12
+                  .team-info.wow.fadeInUp(data-wow-delay='200ms')
+                    .team-view.bw
+                      img.img-responsive(src=service.service_image.url, alt=service.service_image.alt)
+                    .team-heading
+                      | !{PrismicDOM.RichText.asHtml(service.service_name)}
+                      | !{PrismicDOM.RichText.asHtml(service.service_text)}
+                      br
+                      a.small-btn.btn-default(id='service_btn_' + i href=service.service_link.url, name='schedule' target='_blank') Book Now
+
+    // Portfolio Area
+    section#portfolio.portfolio-area.section-padd.overflow
+      .container
+        .row
+          .col-md-12
+            .section-title.mb-40
+              h2
+                | Our 
+                span Gallery
+        .row
+          .col-md-12
+            .portfolio-menu
+              button.active(data-filter='*') all
+              for entry in galleryTags
+                  - var className = '.' + entry.toLowerCase().replace(/[\W_]+/g, "_")
+                  button(data-filter=className) !{entry}
+        .row.oneline-portfolio-1
+          .grid
+            for img in galleryImages
+                - var className = (img.linkText) ? img.linkText.toLowerCase().replace(/[\W_]+/g, "_") : 'unknown_tag'
+                div(class='col-md-4 col-sm-6 col-xs-12 grid-item ' + className)
+                  .portfolio.hover-portfolio
+                    .portfolio-content
+                      img(src=img.image.url, alt=img.image.text)
+                      .portfolio-view
+                        a.pop-image(href=img.image.url)
+                          i.pe-7s-sun
+                          p At a glance
+
+          a.small-btn.btn-default(href='/gallery') See More
+
+    // /Portfolio Area
+    // blog area
+    section#blog.blog-area.section-padd.overflow
+      .container
+        .blog-content-area
+          .section-title.mb-50
+            h2
+              | Recent
+              span  Posts
+          .recent-blog.owl-carousel
+            if socialMedia
+                for post in socialMedia
+                  - var months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
+                  if post.social_media_source === 'twitter'
+                    .single-blog
+                      .col-md-6
+                        .blog-content
+                          img.img-responsive(src=post.user.profile_image_url.replace(/_normal/, ''), alt='twitter profile picture')
+                      .col-md-6
+                        .blog
+                          p
+                            - var date = new Date(post.created_at);
+                            em !{ date.getDay() }
+                            | !{ months[date.getMonth()] }
+                            em !{ date.getFullYear() }
+                          p
+                            | !{ post.text }
+                          a.read-blog(href='https://twitter.com/' + post.user.name + '/status/' + post.id_str, role='button', target='_blank')
+                            |   
+                            i.fa.fa-twitter-square(aria-hidden='true')
+                            |   
+                            |   See on Twitter
+                  else if post.social_media_source === 'facebook'
+                    .single-blog
+                      .col-md-6
+                        .blog-content
+                          - var alt_text = (post.name) ? post.name : 'facebook post picture'
+                          img.img-responsive(src=post.picture, alt=alt_text)
+                      .col-md-6
+                        .blog
+                          p
+                            - var date = new Date(post.created_time);
+                            em !{ date.getDay() }
+                            | !{ months[date.getMonth()] }
+                            em !{ date.getFullYear() }
+                          p
+                            | !{ post.message }
+                      
+                          a.read-blog(href=post.permalink_url, role='button', target='_blank')
+                            i.fa.fa-facebook-square(aria-hidden='true')
+                            |   
+                            img.left.facebook-action-img(src=post.icon, alt='facebook action icon')
+                            |   
+                            |   Read more
+
+    // /blog area
+    // google map
+    section#contact.gmap-area
+      .row.mt-40
+        .section-title.mb-30
+          h2
+            span Contact
+            |  us
+          .contact-way
+            p
+              i.fa.fa-phone(aria-hidden='true')
+              | !{data.plain_phone}
+            p
+              i.fa.fa-envelope-o(aria-hidden='true')
+              | !{data.plain_email}
+            p
+              i.fa.fa-map-marker(aria-hidden='true')
+              | !{data.plain_address}
+      .col-md-12.col-sm-12.col-xs-12.pad-0
+        .gmap
+          .contact-map
+            #map-space
+    // /google map
+    // contact area
+    section.contact-area.section-padd.gray-bg.overflow
+      .container-fluid
+        .row
+          .col-md-offset-3.col-md-6.col-sm-12.col-xs-12.mb-30
+            .contact-content.overflow
+              form#contactForm(name='sentMessage', novalidate='')
+                .row.mt-20
+                  .col-md-12
+                    .form-group.floating-label-form-group.input-controls.control-group
+                      input#name.form-control.form-ct(type='text', placeholder='Name', required='', data-validation-required-message='Please enter your name.')
+                      p.help-block.text-danger
+                    .form-group.floating-label-form-group.input-controls.control-group
+                      input#email.form-control.form-ct(type='email', placeholder='Your Email', required='', data-validation-required-message='You must enter your email address.')
+                      p.help-block.text-danger
+                    .form-group.floating-label-form-group.input-controls.control-group
+                      input#phone.form-control.form-ct(type='tel', placeholder='Phone', required='', data-validation-required-message='Insert your phone number.')
+                      p.help-block.text-danger
+                  .col-md-12
+                    .textarea.mb-10.form-group.floating-label-form-group.input-controls.control-group
+                      textarea#message.form-control.form-ct(rows='8', placeholder='Your Message', required='', data-validation-required-message='Please leave a message.')
+                      p.help-block.text-danger
+                    #success
+                    button.submit-btn(type='submit') Submit
+    // /contact area
+    .modal.fade#accuity_scheduling_modal(tabindex='-1', role='dialog', aria-labelledby='acuitySchedulingLabel', aria-hidden='true')
+        .modal-dialog.modal-lg
+            .modal-content
+                .content
+                    iframe(src='https://app.acuityscheduling.com/schedule.php?owner=ACUITY_SCHEDULING_OWNER_ID', width='100%', height='800', frameborder='0', id='scheduling_iframe')
+                    script(src='https://d3gxy7nm8y4yjr.cloudfront.net/js/embed.js', type='text/javascript')
+
