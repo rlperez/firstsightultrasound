@@ -23,7 +23,7 @@
     "prismic-dom": "~1.2.5",
     "prismic-javascript": "~1.1.6",
     "prismic-nodejs": "~1.5.0",
-    "pug": "~2.0.0-rc.2",
+    "pug": "~3.0.1",
     "request": "~2.81.0",
     "sendmail": "^1.2.0",
     "serve-favicon": "~2.4.3",
